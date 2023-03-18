@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+
+.add-category-button{
+  margin-top: 7px;
+  margin-left: 7px;
+  margin-bottom: 7px;
+}
+.category-card{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
