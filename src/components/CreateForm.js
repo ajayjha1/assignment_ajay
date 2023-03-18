@@ -43,6 +43,7 @@ export const CreateForm = (item) => {
           setEmailError('')
           setUIDError('')
           setDescriptionError('')
+          setPhoneNumError('')
           if(name?.length<=0){
             setNameError('Name is mandatory');
             boolValue2 = false;
@@ -57,6 +58,10 @@ export const CreateForm = (item) => {
           }
           if(description?.length>0 && description?.length<10){
             setDescriptionError('Enter description greater than 10')
+            boolValue2 = false;
+          }
+          if(phoneNum?.length>0 && phoneNum?.length<10){
+            setPhoneNumError('Enter a 10 digit contact number');
             boolValue2 = false;
           }
           if(boolValue2 == true){
@@ -114,16 +119,17 @@ export const CreateForm = (item) => {
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Phone Number</Form.Label>
                     <Form.Control name='phoneNum' onChange={(e) => {if (e.target.value.length > 10) { e.target.value = e.target.value.slice(0, 10);} setPhoneNum(e.target.value);}} type="number" placeholder="Phone Number" />
+                    {phoneNumError.length > 0 ? <p style={{color: 'red'}}>{phoneNumError}</p> : ""}
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Description</Form.Label>
                     <Form.Control name='description' onChange={(e) => setDescription(e.target.value)} type="text" placeholder="Description" />
                     {descriptionError.length > 0 ? <p style={{color: 'red'}}>{descriptionError}</p> : ""}
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
+                {/* <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Category</Form.Label>
                     <Form.Control name='category' onChange={(e) => setCategory(e.target.value)} type="text" placeholder="Category" />
-                </Form.Group>
+                </Form.Group> */}
             </Form>
         </Modal.Body>
         <Modal.Footer>
@@ -135,7 +141,7 @@ export const CreateForm = (item) => {
           </Button>
         </Modal.Footer>
         </Modal>
-        {item != {} ?<UsersData props = {formFields} dataUpdated={updateDataFunction}/>:""}
+        <UsersData props = {formFields} dataUpdated={updateDataFunction}/>
     </div>
   )
 }

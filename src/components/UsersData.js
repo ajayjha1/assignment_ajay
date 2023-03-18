@@ -6,12 +6,10 @@ export const UsersData = (item) => {
    const [usersData, setUserData] = React.useState(dataArray);
    const [usersDataCopy, setUserDataCopy] = React.useState(dataArray);
    const [forceRender, setForceRender] = React.useState();
-   React.useEffect(()=>{
-    setUserData(dataArray)
-   },[])
+   
 
-   const handleDelete = (email) => {
-    setUserData(usersData?.filter((item) => item?.email !== email));
+   const handleDelete = (email, index) => {
+    setUserData(usersData?.filter((item) => item?.props[index]?.email !== email));
     item?.dataUpdated(usersData)
   };
 
@@ -46,7 +44,7 @@ export const UsersData = (item) => {
             </thead>
             <tbody>
                 {
-                    usersData?.map((usersData, index)=>{
+                    dataArray?.map((usersData, index)=>{
                         return(
                     <tr key={index}>
                         <td>{usersData?.name}</td>
@@ -55,7 +53,7 @@ export const UsersData = (item) => {
                         <td>{usersData?.phoneNum}</td>
                         <td>{usersData?.description}</td>
                         <td><EditUser i = {index}  userData={usersData} AllData={usersDataCopy} onDataUpdate={handleDataUpdate}/></td>
-                        <td><Button onClick={() => handleDelete(usersData?.email)}>Delete</Button></td>
+                        <td><Button onClick={() => handleDelete(usersData?.email, index)}>Delete</Button></td>
                     </tr>
                     )
                     })
