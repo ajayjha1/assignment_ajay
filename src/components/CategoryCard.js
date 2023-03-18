@@ -16,7 +16,7 @@ export const CategoryCard = (item) => {
     {formData.map((formData)=>(
     <div className='category-card'>
     <Card style={{ width: '100%' }}>
-      <Card.Img style={{ width: '20px', height: '20px'}} variant="top" src={"'"+formData.categoryIcon+"'"} />
+      <Card.Img style={{ width: '50px', height: '50px'}} variant="top" src={formData.categoryIcon} />
       <Card.Body>
         <Card.Title>{formData.categoryName}</Card.Title>
         <Card.Text>

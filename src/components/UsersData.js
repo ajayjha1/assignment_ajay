@@ -2,17 +2,33 @@ import React from 'react'
 import { Button, Table } from 'react-bootstrap'
 import { EditUser } from './EditUser';
 export const UsersData = (item) => {
-    var dataArray = [...item.props];
+    var dataArray = [...item?.props];
    const [usersData, setUserData] = React.useState(dataArray);
    const [usersDataCopy, setUserDataCopy] = React.useState(dataArray);
+   const [forceRender, setForceRender] = React.useState();
+   React.useEffect(()=>{
+    setUserData(dataArray)
+   },[])
 
    const handleDelete = (email) => {
     setUserData(usersData?.filter((item) => item?.email !== email));
+    item?.dataUpdated(usersData)
   };
 
-  const handleDataUpdate = (updatedData) => {
-    setUserData(updatedData);
+  const handleDataUpdate = (updatedData, index) => {
+    let newData = [...dataArray];
+    newData[index] = updatedData;
+    dataArray = [...newData];
+    setUserData(newData)
+    item?.dataUpdated(newData);
+    // setUserData(prevUserData => {
+    //   const newData = [...prevUserData];
+    //   newData[index] = updatedData;
+    //   dataArray =[...newData];
+    //   return dataArray;
+    // });
   };
+  
 
   return (
     <div>
@@ -30,7 +46,7 @@ export const UsersData = (item) => {
             </thead>
             <tbody>
                 {
-                    dataArray?.map((usersData, index)=>{
+                    usersData?.map((usersData, index)=>{
                         return(
                     <tr key={index}>
                         <td>{usersData?.name}</td>
@@ -43,10 +59,8 @@ export const UsersData = (item) => {
                     </tr>
                     )
                     })
-                    
                 }
             </tbody>
-            
         </Table>
         
     </div>

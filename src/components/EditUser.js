@@ -19,7 +19,12 @@ export const EditUser = (item) => {
     const [category, setCategory] = React.useState(item.userData.category);
     const [formFields, setFormFields] = React.useState([]);
     const [index, setIndex] = React.useState(item.i);
-    const [editedData, setEditedData] = React.useState()
+    const [editedData, setEditedData] = React.useState();
+
+
+    const validationCheck = (e) =>{
+
+    }
 
     const handleSubmit = (e) =>{
        
@@ -33,12 +38,15 @@ export const EditUser = (item) => {
         handleClose();
       }
 
-    const SaveDataUpdate = (e) =>{
-        handleSubmit(e.target.value);
-        const newData = [...item.AllData];
-        newData[index] = editedData;
-        item.onDataUpdate(newData);
-    }
+    //   const validationCheck = (e) =>{
+    //     if
+    //   }
+
+    const SaveDataUpdate = () => {
+      const newData = { name, email, uid, phoneNum, description, category };
+      item.onDataUpdate(newData, index);
+      handleClose();
+    };
 
     
 
@@ -50,7 +58,7 @@ export const EditUser = (item) => {
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Edit Data</Modal.Title>
         </Modal.Header>
         <Modal.Body>
         <Form>
@@ -60,15 +68,15 @@ export const EditUser = (item) => {
                 </Form.Group>
                 <Form.Group onChange={(e) => setEmail(e.target.value)} className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Email</Form.Label>
-                    <Form.Control defaultValue={name} name='Description' type="email" placeholder="Description" />
+                    <Form.Control defaultValue={email} name='Description' type="email" placeholder="email" />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>UID</Form.Label>
                     <Form.Control defaultValue={uid} name='uid' onChange={(e) => setUID(e.target.value)} type="text" placeholder="UID" />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label>Phone Number</Form.Label>
-                    <Form.Control defaultValue={phoneNum} name='phoneNum' onChange={(e) => setPhoneNum(e.target.value)} type="text" placeholder="Phone Number" />
+                    <Form.Label> Phone Number </Form.Label>
+                    <Form.Control defaultValue={phoneNum} name='phoneNum' onChange={(e) => {if (e.target.value.length > 10) { e.target.value = e.target.value.slice(0, 10);} setPhoneNum(e.target.value);}} type="number" placeholder="Phone Number" />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Description</Form.Label>
@@ -76,7 +84,7 @@ export const EditUser = (item) => {
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Category</Form.Label>
-                    <Form.Control defaultValue={description} name='category' onChange={(e) => setCategory(e.target.value)} type="text" placeholder="Description" />
+                    <Form.Control defaultValue={category} name='category' onChange={(e) => setCategory(e.target.value)} type="text" placeholder="Description" />
                 </Form.Group>
             </Form>
         </Modal.Body>
