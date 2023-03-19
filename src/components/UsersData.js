@@ -3,14 +3,18 @@ import { Button, Table } from 'react-bootstrap'
 import { EditUser } from './EditUser';
 export const UsersData = (item) => {
     var dataArray = [...item?.props];
-   const [usersData, setUserData] = React.useState(dataArray);
+   const [usersData, setUserData] = React.useState([...dataArray]);
    const [usersDataCopy, setUserDataCopy] = React.useState(dataArray);
    const [forceRender, setForceRender] = React.useState();
    
 
    const handleDelete = (email, index) => {
-    setUserData(usersData?.filter((item) => item?.props[index]?.email !== email));
-    item?.dataUpdated(usersData)
+    
+    const newUserData = [...dataArray];
+    newUserData.splice(index, 1); // remove the item at the specified index
+    setUserData(newUserData);
+    item?.dataUpdated(newUserData);
+
   };
 
   const handleDataUpdate = (updatedData, index) => {
