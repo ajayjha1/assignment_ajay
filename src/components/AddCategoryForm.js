@@ -33,21 +33,29 @@ export const AddCategory = () => {
       setCategoryIconError('')
    
     if(formCategoryName?.length <= 0){
-      setCategoryNameError('Enter a valid category name')
+      setCategoryNameError('Enter category name')
       boolValue=false;
     }
-    if(formCategoryDescription?.length<= 10){
+    if(formCategoryDescription?.length == 0){
+      setCategoryDescriptionError('Enter description');
+    }
+    if(formCategoryDescription?.length<= 10 && formCategoryDescription?.length){
       setCategoryDescriptionError('Enter description of more than 10 words');
       boolValue = false;
     }
     if(formCategoryIcon?.length <= 0){
-      setCategoryIconError('Enter a valid icon link');
+      setCategoryIconError('Enter icon link');
       boolValue=false;
     }
     if(boolValue == true){
       handleSubmit(e)
     }
   }
+  const updateDataFunction = (newData) =>{
+    setCategoryData(newData);
+  }
+
+  
 
   const handleSubmit = (e) =>{
     const newCategory = {categoryName, categoryDescription, categoryIcon};
@@ -103,7 +111,7 @@ export const AddCategory = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-      <CategoryCard category={categoryData}/>
+      <CategoryCard category={categoryData} dataUpdated={updateDataFunction}/>
     </div>
   )
 }

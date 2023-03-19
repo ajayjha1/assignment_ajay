@@ -27,7 +27,6 @@ export const EditUser = (item) => {
     }
 
     const handleSubmit = (e) =>{
-       
         const newFormData = {name, email, uid, phoneNum, description, category}
         setFormFields([...formFields, newFormData]);
         setName('');
